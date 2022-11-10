@@ -1,0 +1,41 @@
+<launch>
+  <node pkg="rtmros_diagnostics_tools" type="odom_diagnostics.py" name="zed_diagnostics">
+    <remap from="~input" to="/zed/odom"/>
+    <param name="name" value="sensor zed"/>
+  </node>
+
+  <node pkg="rtmros_diagnostics_tools" type="force_diagnostics.py" name="rfsensor_diagnostics">
+    <remap from="~input" to="/rfsensor"/>
+    <param name="name" value="sensor rfsensor"/>
+  </node>
+
+  <node pkg="rtmros_diagnostics_tools" type="force_diagnostics.py" name="lfsensor_diagnostics">
+    <remap from="~input" to="/lfsensor"/>
+    <param name="name" value="sensor lfsensor"/>
+  </node>
+
+  <node pkg="rtmros_diagnostics_tools" type="force_diagnostics.py" name="rhsensor_diagnostics">
+    <remap from="~input" to="/rhsensor"/>
+    <param name="name" value="sensor rhsensor"/>
+  </node>
+
+  <node pkg="rtmros_diagnostics_tools" type="force_diagnostics.py" name="lhsensor_diagnostics">
+    <remap from="~input" to="/lhsensor"/>
+    <param name="name" value="sensor lhsensor"/>
+  </node>
+
+  <node pkg="rtmros_diagnostics_tools" type="imu_diagnostics.py" name="imu_diagnostics">
+    <remap from="~input" to="/imu"/>
+    <param name="name" value="sensor imu"/>
+  </node>
+
+  <node pkg="diagnostic_aggregator" type="aggregator_node" name="segway_diagnostics_aggregator" clear_params="true">
+    <rosparam>
+      analyzers:
+        sensor:
+          type: diagnostic_aggregator/GenericAnalyzer
+          path: sensor
+          find_and_remove_prefix: "sensor "
+    </rosparam>
+  </node>
+</launch>
